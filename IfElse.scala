@@ -2,17 +2,22 @@ package Practice
 
 object IfElse {
   /**
-   * if文の練習。
+   * if-elseの練習。
+   * Scalaのifは文ではなく式である。
+   * そのため、値を返す。3項演算の例がそれである。
    */
 	def main(args:Array[String]){
 
-
-		if (true){
+	  //条件1
+	  if (true){
 			println("if:1")
 		}
 		else{
 			println("else:1");
 		}
+
+		
+		//条件2
 		if(false){
 			println("if:2");
 		}
