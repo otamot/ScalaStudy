@@ -160,6 +160,7 @@ Hello, world, from a script!
 ```
 
 Scalaのコマンドライン引数はargsというScala配列に格納される。
+
 [helloarg.scala](helloarg.scala)
 ```Scala
 //第1引数にhelloと声をかける
@@ -197,7 +198,7 @@ else{
 
 サンプルコード
 
-printargs.scala
+[printargs.scala](printargs.scala)
 ```Scala
 var i = 0
 while(i < args.length){
@@ -214,7 +215,7 @@ is
 fun
 ```
 
-echoargs.scala
+[echoargs.scala](echoargs.scala)
 ```Scala
 var i = 0
 while(i < args.length){
@@ -234,7 +235,7 @@ Scala is even more fun
 ## 2.6 [ステップ6]foreachとforによる反復実行
 whileループでの処理では **命令形のスタイル(imperative stile)** でのプログラミング。Scalaでは **関数型のスタイル(functional style)** でプログラミングすることが増える。
 
-pa.scala
+[pa.scala](pa.scala)
 ```Scala
 args.foreach(arg => println(arg))
 ```
@@ -267,7 +268,7 @@ Scalaの関数リテラルの公文
 
 Scalaでのfor式は以下のように記述する。
 
-forargs.scala
+[forargs.scala](forargs.scala)
 ```Scala
 for(arg <- args)
   println(arg)
