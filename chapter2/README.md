@@ -148,7 +148,7 @@ $
 ```
 
 ## 2.4 [ステップ4]簡単なScalaスクリプトを書く
-hello.scala
+[hello.scala](hello.scala)
 
 ```Scala
 println("Hello, world, from a script!")
@@ -160,6 +160,7 @@ Hello, world, from a script!
 ```
 
 Scalaのコマンドライン引数はargsというScala配列に格納される。
+[helloarg.scala](helloarg.scala)
 ```Scala
 //第1引数にhelloと声をかける
 println("Hello, " + args(0) + "!")
@@ -168,4 +169,115 @@ println("Hello, " + args(0) + "!")
 ```Scala
 $ scala helloarg.scala planet
 Hello, planet!
+```
+
+## 2.5 [ステップ5]whileループとif分岐
+whileループ
+```Scala
+while(条件式){
+  処理
+}
+```
+
+ifループ
+```Scala
+if(条件式){
+    処理
+}
+else if(条件式){
+    処理
+}
+.
+.
+.
+else{
+  処理
+}
+```
+
+サンプルコード
+
+printargs.scala
+```Scala
+var i = 0
+while(i < args.length){
+	println(args(i))
+	i += 1
+}
+
+```
+
+```
+$ scala printargs.scala Scala is fun
+Scala
+is
+fun
+```
+
+echoargs.scala
+```Scala
+var i = 0
+while(i < args.length){
+	if(i != 0)
+		print(" ")
+	print(args(i))
+	i += 1
+}
+println()
+```
+
+```
+$ scala echoargs.scala Scala is even more fun
+Scala is even more fun
+```
+
+## 2.6 [ステップ6]foreachとforによる反復実行
+whileループでの処理では **命令形のスタイル(imperative stile)** でのプログラミング。Scalaでは **関数型のスタイル(functional style)** でプログラミングすることが増える。
+
+pa.scala
+```Scala
+args.foreach(arg => println(arg))
+```
+argsのforeachメソッドを呼び出し、そのメソッドに関数を渡している。argという名前の1個のパラメータをとる **関数リテラル(function literal)** で、関数本体はprintln(arg)
+
+```
+$ scala pa.scala Consise is nice
+Consise
+is
+nice
+```
+
+pa.scalaの書き換え表現
+```Scala
+args.foreach((arg: String) => println(arg)) //引数の型を明示
+```
+
+```Scala
+args.foreach(println)
+//関数リテラルが一つの引数を取る1文から構成される場合は引数を明示的に指定しなくて住む。
+```
+
+
+Scalaの関数リテラルの公文
+```
+(x: Int, y: Int) => x + y
+
+(カッコで囲まれた関数パラメータ) => 関数本体
+```
+
+Scalaでのfor式は以下のように記述する。
+
+forargs.scala
+```Scala
+for(arg <- args)
+  println(arg)
+```
+argはval変数である。
+
+```
+$ scala forargs.scala for arg in args
+for
+arg
+in
+args
 ```
