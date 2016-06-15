@@ -115,7 +115,7 @@ object ChecksumAccumulator{
 Scalaプログラムを実行得するにはmainメソッドを持つスタンドアロンシングルトンオブジェクトを指定しなければならない。Array[String]を引数として結果型はUnitである。
 適切なシグネチャのmainメソッドを持つスタンドアロンオブジェクトはどれでもアプリケーションのエンドポイントとして使える。
 
-```
+```Scala
 import ChecksumAccumulator.calculate
 
 object Summer{
@@ -152,7 +152,7 @@ $ fsc -shutdown
 ```
 
 ## 4.5 Applicationトレイト
-```
+```Scala
 import ChecksumAccumulator.calculate
 object FallWinterSpringSummer extends Application{
   for(season <- List("fall","winter","spring"))
