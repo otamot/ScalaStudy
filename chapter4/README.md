@@ -81,10 +81,17 @@ res0: String = this String gets returned!
 3. 括弧や角括弧の中にいる状態で文末になっている。もともとこうした括弧の中に複数の文を入れることはできない。
 
 ## 4.3 シングルトンオブジェクト
-scalaはstatic memberを持てない。その代わりにシングルトンオブジェクトを持つ。
+scalaはstatic memberを持てない。その代わりにシングルトンオブジェクトを持つ。シングルトンオブジェクトは"class"の代わりに"object"を使う。
 
 ```Scala
+class ChecksumAccumulator{
+  private var sum = 0
+  def add(b: Byte){sum += b}
+  def checksum(): Int = ~(sum & 0xFF) + 1
+}
+
 import scala.collection.mutable.Map
+
 object ChecksumAccumulator{
   private val cache = Map[String, Int]()
   def calculate(s: String): Int =
@@ -99,14 +106,60 @@ object ChecksumAccumulator{
       cs
     }
 }
-```
-シングルトンオブジェクトがクラスメイト同じ名前の時 **コンパニオンオブジェクト** と呼ぶ。クラス側は **コンパニオンクラス** という。両者は同一ソースファイルで定義されなければならない。
-
-
-
 
 ```
+シングルトンオブジェクトがクラス名と同じ名前の時 **コンパニオンオブジェクト** と呼ぶ。クラス側は **コンパニオンクラス** という。両者は同一ソースファイルで定義されなければならない。コンパニオンクラスとコンパニオンオブジェクトは互いにprivateフィールドにアクセス可能である。javaの静的メソッドのような振る舞いをできる。逆にコンパニオンクラスと同じ名前を共有しないシングルトンオブジェクトは **スタンドアロンオブジェクト** という。
+
+
+## 4.4 Scalaアプリケーション
+Scalaプログラムを実行得するにはmainメソッドを持つスタンドアロンシングルトンオブジェクトを指定しなければならない。Array[String]を引数として結果型はUnitである。
+適切なシグネチャのmainメソッドを持つスタンドアロンオブジェクトはどれでもアプリケーションのエンドポイントとして使える。
+
+```
+import ChecksumAccumulator.calculate
+
+object Summer{
+  def main(args: Array[String]){
+    for(arg <- args)
+      println(arg + ":" + calculate(arg))
+  }
+}
+```
+
+コンパイルするには以下をターミナルで実行する。
+```bash
+$ scalac ChecksumAccumulator.scala Summer.scala
+```
+
+ただし、これは待ち時間がかかるので以下を使う。
+
+```bash
+$ fsc ChecksumAccumulator.scala Summer.scala
+```
+fscは初回実行時にローカルサーバデーモンを作り、コンピュータのポートに接続し、そのポートを介してコンパイルするファイルを送るとデーモンはそのファイルをコンパイルする。次にコンパイルするときはすでにデーモンが起動している。
+
+
+実行にはmainメソッドを含むスタンドアロンオブジェクトを指定する。
+```bash
 $ scala Summer of love
 of:-213
 love:-182
 ```
+
+fscデーモンの終了は以下である。
+```bash
+$ fsc -shutdown
+```
+
+## 4.5 Applicationトレイト
+```
+import ChecksumAccumulator.calculate
+object FallWinterSpringSummer extends Application{
+  for(season <- List("fall","winter","spring"))
+    println(season + ": " + calculate(season))
+}
+
+```
+Appricationを継承することで、本来main文に書くべき内容をここに書くことができる。(scala2.9以降では非推奨)
+
+詳細については後の章で説明
