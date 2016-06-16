@@ -196,3 +196,41 @@ bool: Boolean = true
 scala> val fool = false
 fool: Boolean = false
 ```
+
+## 5.3 演算子はメソッド
+Intクラスは1個のIntをパラメータとして取り、Intの結果値を返す"+"というメソッドを持つ。つまり、演算子はメソッドである。
+
+```Scala
+scala> val sum = 1 + 2//下の式をScalaは呼び出している。
+sum: Int = 3
+
+scala> val sumMore = (1).+(2)
+sumMore: Int = 3
+```
+
+またIntのプラスメソッドは **多重定義(overloaded)** を持つ。
+
+```Scala
+scala> val longSum = 1 + 2L
+longSum: Long = 3
+
+scala> val longSumMore = (1).+(2L)
+longSumMore: Long = 3
+```
+Longをパラメータとして取り、Longを返す+メソッド。
+(メソッド名が同じで、別の引数を取るものを多重定義という。)
+
+Scalaはすべてのメソッドで演算子記法が使える。
+```Scala
+scala> val s = "Hello, world!"
+s: String = Hello, world!
+
+scala> s indexOf 'o' //Scalaはs.indexOf('o')を呼び出す
+res0: Int = 4
+```
+
+引数を2個取る場合の演算子記法での書き方は
+```Scala
+scala> s indexOf ('o',5) //Scalaはs.indexOf('o',5)を呼び出す
+res6: Int = 8
+```
